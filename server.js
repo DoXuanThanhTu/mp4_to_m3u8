@@ -22,7 +22,9 @@ const defaultQualities = [
   { resolution: '1280x720', bitrate: '1500k', label: '720p' },
   { resolution: '1920x1080', bitrate: '3000k', label: 'Original' },
 ];
-
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 // Endpoint để chuyển đổi video MP4 sang HLS với tuỳ chọn chất lượng
 app.post('/convert', express.json(), (req, res) => {
   const inputFile = path.join(__dirname, 'input.mp4');
