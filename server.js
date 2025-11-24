@@ -1,11 +1,12 @@
 // server.js
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const fluentFFmpeg = require('fluent-ffmpeg');
-const { v4: uuidv4 } = require('uuid');
-const archiver = require('archiver');
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import fluentFFmpeg from 'fluent-ffmpeg';
+import { v4 as uuidv4 } from 'uuid';
+import archiver from 'archiver';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
