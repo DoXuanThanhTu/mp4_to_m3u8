@@ -1,27 +1,28 @@
-# Bắt đầu từ image Node.js chính thức
+# Chọn image Node.js chính thức
 FROM node:18
 
 # Cài đặt FFmpeg
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && \
+    apt-get install -y ffmpeg && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Thiết lập thư mục làm việc trong container
+# Thư mục làm việc trong container
 WORKDIR /usr/src/app
 
-# Copy package.json và package-lock.json vào container
+# Copy package.json & package-lock.json
 COPY package*.json ./
 
-# Cài đặt các phụ thuộc Node.js
-RUN npm install
+# Cài đặt dependencies
+RUN npm install --production
 
-# Copy tất cả các file còn lại vào container
+# Copy toàn bộ code vào container
 COPY . .
 
-# Tạo các thư mục upload và output nếu chưa tồn tại
-RUN mkdir -p uploads output
+# Tạo các thư mục tạm cần thiết
+RUN mkdir -p /tmp/uploads /tmp/output
 
-# Mở port mà server sẽ lắng nghe
-# Lưu ý: Render sẽ gán port động qua biến môi trường PORT
+# Expose port (Render sẽ override bằng $PORT)
 EXPOSE 3000
 
-# Lệnh khởi động ứng dụng Node.js
+# Start server
 CMD ["node", "server.js"]
