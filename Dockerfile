@@ -16,7 +16,11 @@ RUN npm install
 # Copy tất cả các file còn lại vào container
 COPY . .
 
+# Tạo các thư mục upload và output nếu chưa tồn tại
+RUN mkdir -p uploads output
+
 # Mở port mà server sẽ lắng nghe
+# Lưu ý: Render sẽ gán port động qua biến môi trường PORT
 EXPOSE 3000
 
 # Lệnh khởi động ứng dụng Node.js
